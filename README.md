@@ -1,42 +1,9 @@
-<div align="center">
-
 # SALT: Symmetry-Augmented Level-Set Training for Radar Echo Extrapolation
 
-**Learning Not to Average: Symmetry-Augmented Level-Set Training for Radar Echo Extrapolation**
-
-Feilong Bi<sup>1</sup>, Suting Chen<sup>1,✉</sup>, Bingcheng Wan<sup>2</sup>
-
-<sup>1</sup>School of Electronics and Information Engineering, <sup>2</sup>School of Artificial Intelligence,<br>
-Nanjing University of Information Science and Technology
-
-Paper: coming soon &nbsp;·&nbsp; Code: released upon acceptance
-
-</div>
-
 > [!NOTE]
-> The code, configurations and trained checkpoints will be released in this repository after the paper is accepted. Star or watch the repository to be notified.
+> The paper is under review. Code, configurations and trained checkpoints will be released in this repository upon acceptance.
 
-<p align="center">
-  <img src="assets/teaser.png" width="100%" alt="What SALT changes on a Shanghai test event">
-</p>
-
-## Overview
-
-Radar echo extrapolation is verified as warning regions, the places where reflectivity will exceed operational thresholds, yet deep extrapolators are trained to regress the reflectivity field pointwise. Pointwise regression averages over the possible outcomes at each pixel: the regressed value shrinks intense echoes and cannot tell the model how much to warn.
-
-**SALT** is a backbone-agnostic training framework that learns not to average:
-
-- **NLS Head (nested level-set head)** predicts exceedance probabilities at all thresholds, nested by construction.
-- **Level-Set Readout** reads the warning regions from these probabilities by maximizing the model's own expected critical success index, without labels or tuned parameters.
-- **OTSA (orientation-tagged symmetry augmentation)** enlarges small regional archives with rotations and flips and tags each sample with its transform, so that the forecast is not averaged over orientations.
-
-At negligible inference cost, SALT raises the mean CSI of every backbone it is attached to: by 6–24% on Shanghai, 16–21% on SEVIR and 16–26% on MeteoNet, with the largest gains at the highest thresholds.
-
-<p align="center">
-  <img src="assets/architecture.png" width="100%" alt="SALT architecture">
-</p>
-
-## Main results
+## Results
 
 CSI-M (mean CSI over the warning thresholds) of each backbone before → after SALT, with the relative gain:
 
@@ -141,30 +108,10 @@ GFLOPs of one 5 → 20 forecast at batch size 1; latency: median GPU time at bat
 
 </details>
 
-## Visualization
+## Visualization (Shanghai)
 
-Two strong-echo test cases on each benchmark. Rows: observation; SimVP; SimVP + SALT, regressed channel; SimVP + SALT, level-set readout. Black contour: observed region at 40 dBZ (Shanghai), VIL 181 (SEVIR) and 32 dBZ (MeteoNet); numbers: CSI at the same level.
-
-<p align="center">
-  <img src="assets/qual.png" width="85%" alt="Qualitative comparison on Shanghai, SEVIR and MeteoNet">
-</p>
-
-**CSI against lead time** on SEVIR and MeteoNet (dashed: backbones; solid: + SALT; dotted: persistence):
+Two strong-echo test events. Rows: observation; SimVP; SimVP + SALT, regressed channel; SimVP + SALT, level-set readout. Black contour: observed region at 40 dBZ; numbers: CSI at 40 dBZ.
 
 <p align="center">
-  <img src="assets/leadtime_abs.png" width="100%" alt="CSI against lead time">
+  <img src="assets/qual_shanghai.png" width="100%" alt="Shanghai test events 74 and 297">
 </p>
-
-**Performance diagrams** at the highest threshold (open markers: backbones; filled: + SALT):
-
-<p align="center">
-  <img src="assets/perfdiag.png" width="100%" alt="Performance diagrams">
-</p>
-
-## Citation
-
-A BibTeX entry will be added once the paper is published.
-
-## Acknowledgments
-
-We thank the authors of DiffCast, AlphaPre and SDIR for releasing their code and data, and the providers of the Shanghai, SEVIR, MeteoNet (Météo-France) and CIKM AnalytiCup 2017 datasets.
