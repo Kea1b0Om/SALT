@@ -13,12 +13,12 @@ CSI-M (mean CSI over the warning thresholds) of each backbone before → after S
 | PredRNN | .3775 → **.4692** (+24.3%) | .3275 → **.3971** (+21.3%) | .3442 → **.4352** (+26.4%) |
 | SimVP | .3912 → **.4560** (+16.5%) | .3260 → **.3863** (+18.5%) | .3646 → **.4239** (+16.3%) |
 | Earthformer | .3819 → **.4363** (+14.2%) | .3007 → **.3563** (+18.5%) | .3305 → **.3949** (+19.5%) |
-| AlphaPre | – | .3311 → **.3907** (+18.0%) | .3717 → **.4364** (+17.4%) |
+| AlphaPre | .4134 → **.4639** (+12.2%) | .3311 → **.3907** (+18.0%) | .3717 → **.4364** (+17.4%) |
 | SDIR | .4278 → **.4532** (+5.9%) | .3268 → **.3795** (+16.1%) | .3582 → **.4180** (+16.7%) |
 
 On CIKM 2017 (SimVP only), SALT raises CSI-M from .3632 to .4098.
 
-All models predict 20 frames from 5 at 128 × 128 (Shanghai: 6-min frames, 120 min ahead; SEVIR and MeteoNet: 5-min frames, 100 min ahead). Backbone rows use the raw regressed output; + SALT rows use the label-free level-set readout. Each backbone and its SALT version are trained under the same protocol, and every SALT gain has a 95% paired block-bootstrap interval that excludes zero.
+On Shanghai, SEVIR and MeteoNet, all models predict 20 frames from 5 at 128 × 128 (Shanghai: 6-min frames, 120 min ahead; SEVIR and MeteoNet: 5-min frames, 100 min ahead); on CIKM 2017 they predict 10 frames from 5 (60 min ahead). Backbone rows use the raw regressed output; + SALT rows use the label-free level-set readout. Each backbone and its SALT version are trained under the same protocol, and every SALT gain has a 95% paired block-bootstrap interval that excludes zero.
 
 <details>
 <summary><b>Shanghai</b> (thresholds in dBZ)</summary>
@@ -37,6 +37,8 @@ All models predict 20 frames from 5 at 128 × 128 (Shanghai: 6-min frames, 120 m
 | Earthformer | NeurIPS 2022 | .5320 | .4396 | .3457 | .2104 | .3819 | – | .5174 | .44 |
 | &emsp;+ D4 | – | .5469 | .4463 | .3515 | .2171 | .3905 | +2.2% | .5255 | .46 |
 | &emsp;+ SALT (ours) | – | **.5657** | **.4880** | **.4018** | **.2897** | **.4363** | +14.2% | **.5785** | .95 |
+| AlphaPre | CVPR 2025 | .5505 | .4648 | .3794 | .2589 | .4134 | – | .5481 | .55 |
+| &emsp;+ SALT (ours) | – | **.5924** | **.5116** | **.4280** | **.3237** | **.4639** | +12.2% | **.6037** | 1.00 |
 | SDIR | ICML 2026 | .5642 | .4733 | .3905 | .2833 | .4278 | – | .5675 | .92 |
 | &emsp;+ SALT (ours) | – | **.5754** | **.4990** | **.4204** | **.3182** | **.4532** | +5.9% | **.5941** | 1.04 |
 
@@ -104,7 +106,7 @@ All models predict 20 frames from 5 at 128 × 128 (Shanghai: 6-min frames, 120 m
 | AlphaPre§ | 89,026,438 | – | 3110.75 | 0.0802 |
 | AlphaPre + SALT§ | 89,029,444 | 3,006 | 3111.00 | 0.0813 |
 
-GFLOPs of one 5 → 20 forecast at batch size 1; latency: median GPU time at batch size 1. SDIR + SALT is counted with the head evaluated once, at the pass where it is read; † timed with the head evaluated at every pass. § SEVIR models (AlphaPre was not trained on Shanghai).
+GFLOPs of one 5 → 20 forecast at batch size 1; latency: median GPU time at batch size 1. SDIR + SALT is counted with the head evaluated once, at the pass where it is read; † timed with the head evaluated at every pass. § measured with the SEVIR models (on Shanghai, where the head has four levels instead of six, SALT adds 2,876 parameters), on the same 5 → 20 forecast at 128 × 128.
 
 </details>
 
