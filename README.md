@@ -16,9 +16,7 @@ CSI-M (mean CSI over the warning thresholds) of each backbone before → after S
 | AlphaPre | .4134 → **.4639** (+12.2%) | .3311 → **.3907** (+18.0%) | .3717 → **.4364** (+17.4%) |
 | SDIR | .4278 → **.4532** (+5.9%) | .3268 → **.3795** (+16.1%) | .3582 → **.4180** (+16.7%) |
 
-On CIKM 2017 (SimVP only), SALT raises CSI-M from .3632 to .4098.
-
-On Shanghai, SEVIR and MeteoNet, all models predict 20 frames from 5 at 128 × 128 (Shanghai: 6-min frames, 120 min ahead; SEVIR and MeteoNet: 5-min frames, 100 min ahead); on CIKM 2017 they predict 10 frames from 5 (60 min ahead). Backbone rows use the raw regressed output; + SALT rows use the label-free level-set readout. Each backbone and its SALT version are trained under the same protocol, and every SALT gain has a 95% paired block-bootstrap interval that excludes zero.
+All models predict 20 frames from 5 at 128 × 128 (Shanghai: 6-min frames, 120 min ahead; SEVIR and MeteoNet: 5-min frames, 100 min ahead). Backbone rows use the raw regressed output; + SALT rows use the label-free level-set readout. Each backbone and its SALT version are trained under the same protocol, and every SALT gain has a 95% paired block-bootstrap interval that excludes zero.
 
 <details>
 <summary><b>Shanghai</b> (thresholds in dBZ)</summary>
